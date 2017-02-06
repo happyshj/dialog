@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>弹出框插件</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 12px;
+            padding: 20px;
+        }
+        button{
+            display: inline-block;
+            width: 100px;
+            padding: 10px;
+            margin: 20px 0;
+            background-color: #736357;
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+        }
+        h2{
+            text-align: center;
+        }
+        h3{
+            font-size: 18px;
+            font-family: "宋体";
+            color: #181818;
+            margin-top: 10px;
+        }
+        p{
+            font-size: 16px;
+            font-family: "微软雅黑";
+            color: #283548;
+            margin-top: 10px;
+            text-indent: 2em;
+            line-height: 20px;
+        }
+        pre{
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="css/dialog.css" />
+</head>
+<body>
+    <h2>插件说明</h2>
+    <h3>引入文件说明：</h3>
+    <p>需引入dialog.js和dialog.css文件，并且文件是基于zepto写的，也需引入该文件或者引入jQuery文件。</p>
+    <h3>功能说明：</h3>
+    <p>该插件可用于手机端和PC端，使用flex布局，使弹出框始终位于中间部分。</p>
+    <p>可自定义弹框的宽高width和height默认为自动宽高，以及弹框上的提示信息message。</p>
+    <p>可自定义弹出框的类型type，包括"waiting","ok","warning"。</p>
+    <p>可自定义按钮信息，包括按钮类型type分别为"red","green"以及默认值黑色、按钮文本text、点击按钮后的回调函数callback（按钮默认点击可关闭）。</p>
+    <p>可自定义按钮延时关闭的时间delay以及延时关闭的回调函数delayCallback。</p>
+    <p>可自定义遮罩层的透明度maskOpacity以及点击遮罩层是否关闭maskClose。</p>
+    <p>同时为弹出框弹出设置了一个动画，可选择是否启用effect。</p>
+    <h3>使用说明：</h3>
+    <p>按如下格式进行参数设置即可。</p>
+    <pre>
+        $.dialog({
+            width: "auto",
+            height: "auto",
+            message: null,
+            type: "waiting",
+            buttons: [
+              {
+                 text:"1",
+                 type:"red",
+                 callback:function(){
+                   }
+              }
+            ],
+            delay: null,
+            delayCallback: null,
+            maskOpacity: null,
+            maskClose: null,
+            effect: null
+        })
+    </pre>
+    <h3>案例演示：</h3>
+    <p>案例一：不传递任何参数</p>
+    <p>demo演示：<button id="btn1">案例一</button></p>
+    <p>案例二：设置宽高的警告框"warning"，延时关闭2秒</p>
+    <p>demo演示：<button id="btn2">案例二</button></p>
+    <p>案例三：带有按钮的"ok"框</p>
+    <p>demo演示：<button id="btn3">案例三</button></p>
+    <p>案例四：多个按钮组合框,并带有回调函数</p>
+    <p>demo演示：<button id="btn4">案例四</button></p>
+    <p>案例五：带弹出动画的框，并且点击遮罩层可关闭</p>
+    <p>demo演示：<button id="btn5">案例五</button></p>
+<script src="js/zepto.min.js"></script>
+<script src="js/dialog.js"></script>
+<script>
+    $("#btn1").click(function () {
+        var d = $.dialog();
+    });
+    $("#btn2").click(function () {
+        var d = $.dialog({
+            width: 100,
+            height: 100,
+            type: "warning",
+            message: "2秒后关闭",
+            delay: 2000
+        });
+    });
+    $("#btn3").click(function () {
+        var d = $.dialog({
+            type: "ok",
+            message: "点击关闭",
+            buttons: [
+                {
+                    text: "确认"
+                },
+                {
+                    text: "取消"
+                }
+            ]
+        });
+    });
+    $("#btn4").click(function () {
+        var d = $.dialog({
+            type: "waiting",
+            message: "多组合的按钮框",
+            buttons: [
+                {
+                    type: "red",
+                    text: "确认",
+                    callback: function () {
+                        alert("点击可以关闭!");
+                    }
+                },
+                {
+                    type: "green",
+                    text: "好吧",
+                    callback: function () {
+                        alert("点击不会关闭!");
+                        return false;
+                    }
+                },
+                {
+                    text: "默认",
+                    callback: function () {
+                        alert("点击不会关闭!");
+                        return false;
+                    }
+                }
+            ]
+        });
+    });
+    $("#btn5").click(function () {
+        $.dialog({
+            maskOpacity:.4,
+            maskClose: true,
+            type: "warning",
+            message: "动画框",
+            buttons: [
+                {
+                    type: "green",
+                    text: "确定"
+                },
+                {
+                    type: "red",
+                    text: "取消"
+                }
+            ],
+            effect:true
+        });
+    });
+</script>
+</body>
+</html>
