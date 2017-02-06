@@ -31,3 +31,5 @@
             maskClose: null,
             effect: null
         })
+       
+ ###案例演示https://happyshj.github.io/dialog/index.html
